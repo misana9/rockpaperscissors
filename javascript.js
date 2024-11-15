@@ -11,6 +11,7 @@ const paper = document.getElementById("paperBtn");
 const div = document.getElementById("scoreBoard")
 const humanScoreText = document.getElementById("humanScore");
 const computerScoreText = document.getElementById("computerScore");
+const container = document.getElementById("container");
 
 
 function getComputerChoice(){
@@ -48,6 +49,11 @@ function checkWinner(){
     restart.textContent = "Restart";
     scoreBoard.appendChild(winnerText);
     scoreBoard.appendChild(restart);
+    scoreBoard.style.backgroundColor = "white";
+    scoreBoard.style.display = "flex";
+    scoreBoard.style.flexDirection = "column"
+    container.appendChild(scoreBoard)
+    
 
     restart.addEventListener("click", () => {
         location.reload();
