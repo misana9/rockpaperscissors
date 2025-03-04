@@ -1,134 +1,137 @@
-let humanScore = 0;
-let computerScore = 0;
-let round = 0;
-let winner;
-let playerChoice;
-let aiChoice ;
+document.addEventListener("DOMContentLoaded", () => {
 
-const rock = document.getElementById("rockBtn");
-const scissor = document.getElementById("scissorBtn");
-const paper = document.getElementById("paperBtn");
-const div = document.getElementById("scoreBoard")
-const humanScoreText = document.getElementById("humanScore");
-const computerScoreText = document.getElementById("computerScore");
-const container = document.getElementById("container");
-
-
-function getComputerChoice(){
-    let computerChoice = Math.floor(Math.random() * 3);
-    if(computerChoice == 0){
-        aiChoice = "rock";
-    }
-    else if(computerChoice == 1){
-        aiChoice = "scissor";
-    }
-    else{
-        aiChoice = "paper";
-    }
-}
-
-function getHumanChoice(e){
-        getComputerChoice();
-        if(e.target.id === "rockBtn")
-            playRound("rock",aiChoice);
-        else if(e.target.id === "scissorBtn")
-            playRound("scissor",aiChoice);
-        else
-            playRound("paper",aiChoice);
-    }
-
-function checkWinner(){
-    if(humanScore > computerScore)
-        winner = "YOU!";
-    if(humanScore< computerScore){
-        winner = "AI!";
-    }
-    const winnerText = document.createElement("div");
-    winnerText.textContent = "Winner is " + winner;
-    const restart = document.createElement("button");
-    restart.textContent = "Restart";
-    scoreBoard.appendChild(winnerText);
-    scoreBoard.appendChild(restart);
-    scoreBoard.style.backgroundColor = "white";
-    scoreBoard.style.display = "flex";
-    scoreBoard.style.flexDirection = "column"
-    container.appendChild(scoreBoard)
+    const scissorBtn = document.querySelector(".scissor");
+    const rockBtn = document.querySelector(".rock");
+    const paperBtn = document.querySelector(".paper");
     
-
-    restart.addEventListener("click", () => {
-        location.reload();
-    })
-}
-
-
-
-function playRound(playerChoice,computerChoice){
-    getComputerChoice();
-    if(playerChoice == "rock"){
-        if (computerChoice == "scissor"){
-            scoreBoard.textContent = "You win! Rock beats scissor.";
-            humanScore = humanScore + 1;
-            humanScoreText.textContent = humanScore;
-        }
-        else if(computerChoice == "paper"){
-            scoreBoard.textContent = "You lose! Paper beats rock";
-            computerScore = computerScore + 1;
-            computerScoreText.textContent = computerScore;
-        }
-        else{
-            scoreBoard.textContent = "Its a draw";
-        }
-    }
-    else if(playerChoice == "scissor"){
-        if (computerChoice == "rock"){
-            scoreBoard.textContent = "You lose! Rock beats scissor.";
-            computerScore = computerScore + 1;
-            computerScoreText.textContent = computerScore;
-        }
-        else if(computerChoice == "paper"){
-            scoreBoard.textContent = "You win! Scissor beats paper";
-            humanScore = humanScore + 1;
-            humanScoreText.textContent = humanScore;
-        }
-        else{
-            scoreBoard.textContent = "Its a draw";
+    const userPts = document.querySelector("#user-score")
+    const userScore = document.createElement("h2");
+    const compPts = document.querySelector("#comp-score");
+    const AIScore = document.createElement("h2");   
+    
+    const userImage = document.querySelector(".user-choice");
+    const compImage = document.querySelector(".comp-choice");
+    
+    const outputh1 = document.querySelector(".output h1")
+    
+    
+    let humanScore = 0, compScore = 0;
+    
+    userImage.style.backgroundImage = 'url("images/question.png")';
+    compImage.style.backgroundImage = 'url("images/question.png")';
+    
+    
+    
+    function getComputerChoice() {
+        const compChoice = Math.floor(Math.random() * 3);
+        if (compChoice == 0) {
+            userImage.classList.add
+            return "rock";
+        } else if (compChoice == 1) {
+            return "scissors";
+        } else {
+            return "paper";
         }
     }
-    else if(playerChoice == "paper"){
-        if (computerChoice == "rock"){
-            scoreBoard.textContent = "You win! Paper beats rock.";
-            humanScore = humanScore + 1;
-            humanScoreText.textContent = humanScore;
+    updateScore();
+    
+    function playRound(comp,user){
+        if(user == comp){
+            outputh1.textContent = "It's a tie!";
         }
-        else if(computerChoice == "scissor"){
-            scoreBoard.textContent = "You lose! Scissor beats paper";
-            computerScore = computerScore + 1;
-            computerScoreText.textContent = computerScore;
+        else if(user == "scissors"){//scissor
+            if(comp == "paper"){
+                outputh1.textContent = "You win";
+                humanScore++;
+            }
+            else{//rock
+                outputh1.textContent = "You lose!";
+                compScore++;
+            }
         }
-        else{
-            scoreBoard.textContent = "Its a draw";
+        else if(user == "rock"){//rock
+            if(comp == "scissors"){
+                outputh1.textContent = "You win"
+                humanScore++;
+            }
+            else{//paper
+                outputh1.textContent = "You lose";
+                compScore++;
+            }
+        }
+        else{//paper
+            if(comp == "scissors"){
+                outputh1.textContent = "You lose";
+                compScore++;
+            }
+            else{//rock
+                outputh1.textContent = "You win";document.
+                humanScore++;
+            }
         }
     }
-    if(humanScore == 5 || computerScore == 5)
-    checkWinner();
-}
-
-
-
-rock.addEventListener("click", (e) => {
-    if(computerScore != 5 && humanScore !=5){
-    getHumanChoice(e);
+    
+    function showWinnerPopup(winner) {
+        setTimeout(() => {
+            document.querySelector(".popUp div").textContent = winner + " wins!";
+            document.querySelector(".popUp").style.display = "block";
+            document.querySelector(".overlay").style.display = "block";
+    
+        }, 100);
     }
-});
-
-scissor.addEventListener("click", (e) => {
-    if(computerScore != 5 && humanScore !=5){
-        getHumanChoice(e);
+    
+    
+    function updateScore(){
+        userScore.textContent = humanScore;
+        AIScore.textContent = compScore;
+        userScore.classList.add("score");
+        AIScore.classList.add("score")
+        userPts.append(userScore)
+        compPts.append(AIScore)
+        if (humanScore === 5 || compScore === 5) {
+            showWinnerPopup(humanScore === 5 ? "User" : "Computer");
         }
-});
-
-paper.addEventListener("click", (e) => {
-    if(computerScore != 5 && humanScore !=5){
-        getHumanChoice(e);
-        }
-});
+    
+    }
+    
+    function handleChoice(choice) {
+        const userChoice = choice;
+        userImage.style.backgroundImage = `url("images/${userChoice}.png")`;
+        const compChoice = getComputerChoice();
+        compImage.style.backgroundImage = `url("images/${compChoice}.png")`;
+        playRound(compChoice, userChoice);
+        updateScore();
+    }
+    
+    function restartGame() {
+        // Hide popup and overlay
+        document.querySelector(".popUp").style.display = "none";
+        document.querySelector(".overlay").style.display = "none";
+    
+        // Reset game variables (example, adjust based on your implementation)
+        humanScore = 0;
+        compScore = 0;
+        updateScore();
+    
+        
+    userImage.style.backgroundImage = 'url("images/question.png")';
+    compImage.style.backgroundImage = 'url("images/question.png")';
+    }
+    
+    
+    
+    scissorBtn.addEventListener("click", () => {
+        handleChoice("scissors");
+    });
+    rockBtn.addEventListener("click", () => handleChoice("rock"));
+    paperBtn.addEventListener("click", () => handleChoice("paper"));
+    
+    document.querySelector(".restartButton").addEventListener("click", restartGame);
+    
+    
+    
+    });
+    
+    
+    
+    

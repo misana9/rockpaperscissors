@@ -1,32 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script defer src="javascript.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="javascript.js" defer></script>
-    <link rel="stylesheet" href="styles.css">
+    <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <div id="container">
-        <h1>Rock Paper Scissors</h1>
-        <div>
-            <span id="humanCounter">Human: 
-                <span id="humanScore">0</span>
-            </span>
-            <span id="computerCounter">Computer: 
-                <span id="computerScore">0</span>
-            </span>
-        </div>
-        <div id="choices">
-            <button id="rockBtn">Rock</button>
-            <button id="scissorBtn">Scissors</button>
-            <button id="paperBtn">Paper</button>
-        </div>
-        <div id="scoreBoard">
-    
-        </div>
+    <div class="wrapper">
+        <header class="header">
+            Rock Paper Scissors
+        </header>
+        <main class="main-container">
+            <div class="output">
+                <h1>Choose your weapon</h1>
+                <h2>First to score 5 points wins the game</h2>
+            </div>
+            <div class="scoreboard">
+                <div class="user-container">
+                    <h1 id="user-score">User score: </h1>
+                </div>
+                <div>
+                    <h1 id="comp-score">Comp score: </h1>
+                </div>
+            </div>
+            <div class="round-container">
+                <div class="user-choice">
+                </div>
+                <div class="comp-choice">
+                </div>
+            </div>
+            <div class="options-container">
+                <button class="scissor"></button>
+                <button class="rock"></button>
+                <button class="paper"></button>
+            </div>
+        </main>
+        <footer class="footer">
+            Copyright © 2025 misana9
+        </footer>
     </div>
-
+    <div class="popUp">
+        <div>
+            win!
+        </div>
+        <button class="restartButton">Play again!</button>
+    </div>
+    <div class="overlay"></div>
 </body>
 </html>
